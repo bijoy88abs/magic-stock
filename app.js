@@ -1,11 +1,10 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const stockMasterRouter = require("./masterRouter");
 
-const stockRouter = require("./router");
 
-
-app.use('/stock', stockRouter);
+app.use('/master-stock', stockMasterRouter);
 
 
 const PORT = process.env.PORT || 8050;
