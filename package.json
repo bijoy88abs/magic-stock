@@ -1,0 +1,19 @@
+{
+  "name": "magic-stock",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bijoy88abs/magic-stock.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bijoy88abs/magic-stock/issues"
+  },
+  "homepage": "https://github.com/bijoy88abs/magic-stock#readme"
+}
