@@ -16,7 +16,7 @@ router.post('/masterPurchaseItemPost', (req, res) => {
     });
 
     masterPurchaseItemModelQuery.save().then(() => {
-        res.json('masterPurchaseItemModelQuery executed');
+        res.json({msg: 'masterPurchaseItemModelQuery executed'});
     }).catch((e) => {
         res.json(e);
     })
