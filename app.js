@@ -2,19 +2,18 @@ const express = require("express");
 var cors = require('cors');
 const app = express();
 const mongoose = require("mongoose");
-
-app.use(cors())
 const stockMasterRouter = require("./masterRouter");
+
+app.use(cors());
 app.use(
     express.urlencoded({
         extended: true
     })
 );
-
 app.use(express.json());
 
-app.use('/master-stock', stockMasterRouter);
 
+app.use('/master-stock', stockMasterRouter);
 
 const PORT = process.env.PORT || 8050;
 mongoose
