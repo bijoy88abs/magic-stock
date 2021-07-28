@@ -13,7 +13,7 @@ let masterPurchaseItemModel = mongoose.model('masterPurchaseItem', masterPurchas
 router.post('/masterPurchaseItemPost', (req, res) => {
     console.log('req-------', req.body.data);
     let masterPurchaseItemModelQuery = new masterPurchaseItemModel({
-        itemName: req.body.data
+        itemName: req.body.data.itemName
     });
 
     masterPurchaseItemModelQuery.save().then(() => {
