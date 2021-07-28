@@ -4,24 +4,25 @@ const mongoose = require("mongoose");
 const router = express.Router();
 
 
-let schema = mongoose.Schema;
-let testSchema = new schema({
-    item: String
-});
-let Test = mongoose.model('purchase', testSchema);
+// let schema = mongoose.Schema;
+// let testSchema = new schema({
+//     item: String
+// });
+// let Test = mongoose.model('purchase', testSchema);
 
 router.get('/purchaseList', (req, res) => {
-    let test = new Test({
-        item: '1234'
-    });
+    res.send('test');
+    // let test = new Test({
+    //     item: '1234'
+    // });
 
-    test.save().then(() => {
-        res.send('purchase list route');
+    // test.save().then(() => {
+    //     res.send('purchase list route');
 
-    }).catch((e) => {
+    // }).catch((e) => {
 
-        res.send(e);
-    })
+    //     res.send(e);
+    // })
 })
 
 module.exports = router;
