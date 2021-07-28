@@ -11,9 +11,9 @@ let masterPurchaseItemSchema = new schema({
 let masterPurchaseItemModel = mongoose.model('masterPurchaseItem', masterPurchaseItemSchema);
 
 router.post('/masterPurchaseItemPost', (req, res) => {
-    console.log('req-------', req);
+    console.log('req-------', req.body);
     let masterPurchaseItemModelQuery = new masterPurchaseItemModel({
-        itemName: req.data
+        itemName: req.body
     });
 
     masterPurchaseItemModelQuery.save().then(() => {
@@ -24,7 +24,11 @@ router.post('/masterPurchaseItemPost', (req, res) => {
 });
 
 router.get('/masterPurchaseItemView', (req, res) => {
-   
+    masterPurchaseItemModel.find().then((responseData) => {
+        res.json({data: responseData});
+    }).catch((e) => {
+        res.json(e);
+    });
 });
 
 router.post('/masterPurchaseItemDelete', (req, res) => {
