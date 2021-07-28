@@ -22,7 +22,7 @@ router.post('/masterPurchaseItemPost', (req, res) => {
     })
 });
 
-router.post('/masterPurchaseItemView', (req, res) => {
+router.get('/masterPurchaseItemView', (req, res) => {
    
 });
 
