@@ -2,9 +2,10 @@
   "name": "magic-stock",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/bijoy88abs/magic-stock/issues"
   },
-  "homepage": "https://github.com/bijoy88abs/magic-stock#readme"
+  "homepage": "https://github.com/bijoy88abs/magic-stock#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
