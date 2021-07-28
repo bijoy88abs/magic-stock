@@ -20,6 +20,7 @@ router.get('/purchaseList', (req, res) => {
 
     }).catch((e) => {
 
+        res.send(e);
     })
 })
 
