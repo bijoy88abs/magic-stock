@@ -11,9 +11,9 @@ let masterPurchaseItemSchema = new schema({
 let masterPurchaseItemModel = mongoose.model('masterPurchaseItem', masterPurchaseItemSchema);
 
 router.post('/masterPurchaseItemPost', (req, res) => {
-    console.log('req-------', req.body.data);
+    console.log('req-------', req.body);
     let masterPurchaseItemModelQuery = new masterPurchaseItemModel({
-        itemName: req.body.data.itemName
+        itemName: req.body.itemName
     });
 
     masterPurchaseItemModelQuery.save().then(() => {
