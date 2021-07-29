@@ -176,4 +176,118 @@ router.post('/masterPurchaseMachineItemDelete', (req, res) => {
 });
 
 
+/************************************************************************************ */
+/************************************************************************************ */
+let masterSizeSchema = new schema({
+    sizeName: String
+});
+let masterSizeModel = mongoose.model('masterSize', masterSizeSchema);
+
+router.post('/masterSizePost', (req, res) => {
+    let masterSizeModelQuery = new masterSizeModel({
+        itemName: req.body.sizeName
+    });
+    masterSizeModelQuery.save().then(() => {
+        res.json({ msg: 'masterSizeModelQuery executed' });
+    }).catch((e) => {
+        res.json(e);
+    })
+});
+
+router.post('/masterSizeEdit', (req, res) => {
+    let { itemName } = req.body;
+    let { id } = req.body;
+    masterSizeModel.findOneAndUpdate(
+        {
+            _id: id
+        },
+        {
+            $set: { itemName }
+        }
+    ).then(() => {
+        res.json({ msg: 'masterSizeModelQuery updated' });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+router.get('/masterSizeView', (req, res) => {
+    masterSizeModel.find().then((responseData) => {
+        res.json({ data: responseData });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+router.post('/masterSizeDelete', (req, res) => {
+    let { id } = req.body;
+    masterSizeModel.findOneAndDelete(
+        {
+            _id: id
+        }
+    ).then(() => {
+        res.json({ msg: 'masterSizeModelQuery deleted' });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+
+/************************************************************************************ */
+/************************************************************************************ */
+let masterColorSchema = new schema({
+    colorName: String
+});
+let masterColorModel = mongoose.model('masterColor', masterColorSchema);
+
+router.post('/masterColorPost', (req, res) => {
+    let masterColorModelQuery = new masterColorModel({
+        colorName: req.body.sizeName
+    });
+    masterColorModelQuery.save().then(() => {
+        res.json({ msg: 'masterColorModelQuery executed' });
+    }).catch((e) => {
+        res.json(e);
+    })
+});
+
+router.post('/masterColorEdit', (req, res) => {
+    let { colorName } = req.body;
+    let { id } = req.body;
+    masterColorModel.findOneAndUpdate(
+        {
+            _id: id
+        },
+        {
+            $set: { itemName }
+        }
+    ).then(() => {
+        res.json({ msg: 'masterColorModelQuery updated' });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+router.get('/masterColorView', (req, res) => {
+    masterColorModel.find().then((responseData) => {
+        res.json({ data: responseData });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+router.post('/masterColorDelete', (req, res) => {
+    let { id } = req.body;
+    masterColorModel.findOneAndDelete(
+        {
+            _id: id
+        }
+    ).then(() => {
+        res.json({ msg: 'masterColorModelQuery deleted' });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+
 module.exports = router;
