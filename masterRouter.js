@@ -21,7 +21,6 @@ router.post('/masterPurchaseItemPost', (req, res) => {
 });
 
 router.post('/masterPurchaseItemEdit', (req, res) => {
-    console.log('req-------', req.body);
     let { itemName } = req.body;
     let { id } = req.body;
 
@@ -48,7 +47,6 @@ router.get('/masterPurchaseItemView', (req, res) => {
 });
 
 router.post('/masterPurchaseItemDelete', (req, res) => {
-    console.log('req-------', req.body);
     let { id } = req.body;
 
     masterPurchaseItemModel.findOneAndDelete(
@@ -284,6 +282,41 @@ router.post('/masterColorDelete', (req, res) => {
         }
     ).then(() => {
         res.json({ msg: 'masterColorModelQuery deleted' });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+
+/************************************************************************************ */
+/************************************************************************************ */
+router.get('/masterCollectionList', (req, res) => {
+    masterPurchaseItemModel.find().then((masterPurchaseItemData) => {
+        masterPurchaseRawItemModel.find().then((masterPurchaseRawItemData) => {
+            masterPurchaseMachineItemModel.find().then((masterPurchaseMachineItemData) => {
+                masterSizeModel.find().then((masterSizeData) => {
+                    masterColorModel.find().then((masterColorData) => {
+                        res.json(
+                            {
+                                masterPurchaseItemData: masterPurchaseItemData,
+                                masterPurchaseRawItemData: masterPurchaseRawItemData,
+                                masterPurchaseMachineItemData: masterPurchaseMachineItemData,
+                                masterSizeData: masterSizeData,
+                                masterColorData: masterColorData
+                            }
+                        );
+                    }).catch((e) => {
+                        res.json(e);
+                    });
+                }).catch((e) => {
+                    res.json(e);
+                });
+            }).catch((e) => {
+                res.json(e);
+            });
+        }).catch((e) => {
+            res.json(e);
+        });
     }).catch((e) => {
         res.json(e);
     });
