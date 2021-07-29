@@ -185,7 +185,7 @@ let masterSizeModel = mongoose.model('masterSize', masterSizeSchema);
 
 router.post('/masterSizePost', (req, res) => {
     let masterSizeModelQuery = new masterSizeModel({
-        itemName: req.body.sizeName
+        sizeName: req.body.sizeName
     });
     masterSizeModelQuery.save().then(() => {
         res.json({ msg: 'masterSizeModelQuery executed' });
@@ -195,14 +195,14 @@ router.post('/masterSizePost', (req, res) => {
 });
 
 router.post('/masterSizeEdit', (req, res) => {
-    let { itemName } = req.body;
+    let { sizeName } = req.body;
     let { id } = req.body;
     masterSizeModel.findOneAndUpdate(
         {
             _id: id
         },
         {
-            $set: { itemName }
+            $set: { sizeName }
         }
     ).then(() => {
         res.json({ msg: 'masterSizeModelQuery updated' });
@@ -242,7 +242,7 @@ let masterColorModel = mongoose.model('masterColor', masterColorSchema);
 
 router.post('/masterColorPost', (req, res) => {
     let masterColorModelQuery = new masterColorModel({
-        colorName: req.body.sizeName
+        colorName: req.body.colorName
     });
     masterColorModelQuery.save().then(() => {
         res.json({ msg: 'masterColorModelQuery executed' });
@@ -259,7 +259,7 @@ router.post('/masterColorEdit', (req, res) => {
             _id: id
         },
         {
-            $set: { itemName }
+            $set: { colorName }
         }
     ).then(() => {
         res.json({ msg: 'masterColorModelQuery updated' });
