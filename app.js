@@ -3,6 +3,7 @@ var cors = require('cors');
 const app = express();
 const mongoose = require("mongoose");
 const stockMasterRouter = require("./masterRouter");
+const stockPurchaseRouter = require("./purchaseRouter");
 
 app.use(cors());
 app.use(
@@ -14,6 +15,7 @@ app.use(express.json());
 
 
 app.use('/master-stock', stockMasterRouter);
+app.use('/purchase-stock', stockPurchaseRouter);
 
 const PORT = process.env.PORT || 8050;
 mongoose
