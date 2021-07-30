@@ -301,7 +301,7 @@ router.post('/masterGstPost', (req, res) => {
     let { gstType, gstValue } = req.body;
     let masterGstModelQuery = new masterGstModel({
         gstType: gstType,
-        gstValue: gstValue
+        gstValue: gstValue.toString()
     });
     masterGstModelQuery.save().then(() => {
         res.json({ msg: 'masterGstModelQuery executed' });
