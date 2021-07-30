@@ -306,7 +306,7 @@ router.post('/masterGstPost', (req, res) => {
     masterGstModelQuery.save().then(() => {
         res.json({ msg: 'masterGstModelQuery executed' });
     }).catch((e) => {
-        res.json(e);
+        res.json({ error: e, payload: req.body });
     })
 });
 
