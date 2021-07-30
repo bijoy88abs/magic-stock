@@ -293,7 +293,7 @@ router.post('/masterColorDelete', (req, res) => {
 /************************************************************************************ */
 let masterGstSchema = new schema({
     gstType: String,
-    gstValue: String
+    gstValue: Number
 });
 let masterGstModel = mongoose.model('masterGst', masterGstSchema);
 
@@ -301,7 +301,7 @@ router.post('/masterGstPost', (req, res) => {
     let { gstType, gstValue } = req.body;
     let masterGstModelQuery = new masterGstModel({
         gstType: gstType,
-        gstValue: gstValue.toString()
+        gstValue: gstValue
     });
     masterGstModelQuery.save().then(() => {
         res.json({ msg: 'masterGstModelQuery executed' });
