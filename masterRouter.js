@@ -298,10 +298,8 @@ let masterGstSchema = new schema({
 let masterGstModel = mongoose.model('masterGst', masterGstSchema);
 
 router.post('/masterGstPost', (req, res) => {
-    let masterGstModelQuery = new masterGstModel({
-        gstType: req.body.gstType,
-        gstValue: req.body.gstValue
-    });
+    let { gstType, gstValue } = req.body;
+    let masterGstModelQuery = new masterGstModel({ gstType, gstValue });
     masterGstModelQuery.save().then(() => {
         res.json({ msg: 'masterGstModelQuery executed' });
     }).catch((e) => {
