@@ -288,6 +288,66 @@ router.post('/masterColorDelete', (req, res) => {
 });
 
 
+
+/************************************************************************************ */
+/************************************************************************************ */
+let masterGstSchema = new schema({
+    gstType: String,
+    gstValue: String
+});
+let masterGstModel = mongoose.model('masterGst', masterGstSchema);
+
+router.post('/masterGstPost', (req, res) => {
+    let masterGstModelQuery = new masterGstModel({
+        gstType: req.body.gstType,
+        gstValue: req.body.gstValue
+    });
+    masterGstModelQuery.save().then(() => {
+        res.json({ msg: 'masterGstModelQuery executed' });
+    }).catch((e) => {
+        res.json(e);
+    })
+});
+
+router.post('/masterGstEdit', (req, res) => {
+    let { gstType, gstValue } = req.body;
+    let { id } = req.body;
+    masterGstModel.findOneAndUpdate(
+        {
+            _id: id
+        },
+        {
+            $set: { gstType, gstValue }
+        }
+    ).then(() => {
+        res.json({ msg: 'masterGstModelQuery updated' });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+router.get('/masterGstView', (req, res) => {
+    masterGstModel.find().then((responseData) => {
+        res.json({ data: responseData });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+router.post('/masterGstDelete', (req, res) => {
+    let { id } = req.body;
+    masterGstModel.findOneAndDelete(
+        {
+            _id: id
+        }
+    ).then(() => {
+        res.json({ msg: 'masterGstModelQuery deleted' });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+
 /************************************************************************************ */
 /************************************************************************************ */
 router.get('/masterCollectionList', (req, res) => {
