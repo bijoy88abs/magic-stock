@@ -287,6 +287,62 @@ router.post('/masterColorDelete', (req, res) => {
     });
 });
 
+/************************************************************************************ */
+/************************************************************************************ */
+let masterMaterialSchema = new schema({
+    materialName: String
+});
+let masterMaterialModel = mongoose.model('masterMaterial', masterMaterialSchema);
+
+router.post('/masterMaterialPost', (req, res) => {
+    let masterMaterialModelQuery = new masterMaterialModel({
+        materialName: req.body.materialName
+    });
+    masterMaterialModelQuery.save().then(() => {
+        res.json({ msg: 'masterMaterialModelQuery executed' });
+    }).catch((e) => {
+        res.json(e);
+    })
+});
+
+router.post('/masterMaterialEdit', (req, res) => {
+    let { materialName } = req.body;
+    let { id } = req.body;
+    masterMaterialModel.findOneAndUpdate(
+        {
+            _id: id
+        },
+        {
+            $set: { materialName }
+        }
+    ).then(() => {
+        res.json({ msg: 'masterMaterialModelQuery updated' });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+router.get('/masterMaterialView', (req, res) => {
+    masterMaterialModel.find().then((responseData) => {
+        res.json({ data: responseData });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+router.post('/masterMaterialDelete', (req, res) => {
+    let { id } = req.body;
+    masterMaterialModel.findOneAndDelete(
+        {
+            _id: id
+        }
+    ).then(() => {
+        res.json({ msg: 'masterMaterialModelQuery deleted' });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
 
 
 /************************************************************************************ */
@@ -354,15 +410,25 @@ router.get('/masterCollectionList', (req, res) => {
             masterPurchaseMachineItemModel.find().then((masterPurchaseMachineItemData) => {
                 masterSizeModel.find().then((masterSizeData) => {
                     masterColorModel.find().then((masterColorData) => {
-                        res.json(
-                            {
-                                masterPurchaseItemData: masterPurchaseItemData,
-                                masterPurchaseRawItemData: masterPurchaseRawItemData,
-                                masterPurchaseMachineItemData: masterPurchaseMachineItemData,
-                                masterSizeData: masterSizeData,
-                                masterColorData: masterColorData
-                            }
-                        );
+                        masterGstModel.find().then((masterGstData) => {
+                            masterMaterialModel.find().then((masterMaterialData) => {
+                                res.json(
+                                    {
+                                        masterPurchaseItemData: masterPurchaseItemData,
+                                        masterPurchaseRawItemData: masterPurchaseRawItemData,
+                                        masterPurchaseMachineItemData: masterPurchaseMachineItemData,
+                                        masterSizeData: masterSizeData,
+                                        masterColorData: masterColorData,
+                                        masterGstData: masterGstData,
+                                        masterMaterialData: masterMaterialData
+                                    }
+                                );
+                            }).catch((e) => {
+                                res.json(e);
+                            });
+                        }).catch((e) => {
+                            res.json(e);
+                        });
                     }).catch((e) => {
                         res.json(e);
                     });
