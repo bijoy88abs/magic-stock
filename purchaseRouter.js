@@ -102,7 +102,7 @@ router.post('/purchaseRawPost', (req, res) => {
 
     let purchaseRawModelQuery = new purchaseRawModel({
         purchaseItemName,
-        purchaseItemDate,       
+        purchaseItemDate,
         purchaseItemQty,
         purchaseItemPricePerUnit,
         purchaseItemGst,
@@ -160,7 +160,77 @@ router.post('/purchaseRawDelete', (req, res) => {
 
 /************************************************************************************ */
 /************************************************************************************ */
+let purchaseMachineSchema = new schema({
+    purchaseItemName: String,
+    purchaseItemDate: String,
+    purchaseItemQty: String,
+    purchaseItemPricePerUnit: String,
+    purchaseItemGst: String,
+    purchaseItemHsn: String,
+    purchaseItemNote: String
+});
 
+let purchaseMachineModel = mongoose.model('purchaseMachineItem', purchaseMachineSchema);
+
+router.post('/purchaseMachinePost', (req, res) => {
+    let { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote } = req.body;
+
+    let purchaseMachineModelQuery = new purchaseMachineModel({
+        purchaseItemName,
+        purchaseItemDate,
+        purchaseItemQty,
+        purchaseItemPricePerUnit,
+        purchaseItemGst,
+        purchaseItemHsn,
+        purchaseItemNote
+    });
+
+    purchaseMachineModelQuery.save().then(() => {
+        res.json({ msg: 'purchaseMachineModelQuery executed' });
+    }).catch((e) => {
+        res.json(e);
+    })
+});
+
+router.post('/purchaseMachineEdit', (req, res) => {
+    let { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote } = req.body;
+    let { id } = req.body;
+
+    purchaseMachineModel.findOneAndUpdate(
+        {
+            _id: id
+        },
+        {
+            $set: { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote }
+        }
+    ).then(() => {
+        res.json({ msg: 'purchaseMachineModelQuery updated' });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+router.get('/purchaseMachineView', (req, res) => {
+    purchaseMachineModel.find().then((responseData) => {
+        res.json({ data: responseData });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+router.post('/purchaseMachineDelete', (req, res) => {
+    let { id } = req.body;
+
+    purchaseMachineModel.findOneAndDelete(
+        {
+            _id: id
+        }
+    ).then(() => {
+        res.json({ msg: 'purchaseMachineItemModelQuery deleted' });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
 
 
 
