@@ -13,13 +13,14 @@ let purchaseItemSchema = new schema({
     purchaseItemPricePerUnit: String,
     purchaseItemGst: String,
     purchaseItemHsn: String,
-    purchaseItemNote: String
+    purchaseItemNote: String,
+    purchaseItemSupplier: String
 });
 
 let purchaseItemModel = mongoose.model('purchaseItem', purchaseItemSchema);
 
 router.post('/purchaseItemPost', (req, res) => {
-    let { purchaseItemName, purchaseItemDate, purchaseItemColor, purchaseItemSize, purchaseItemMaterial, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote } = req.body;
+    let { purchaseItemName, purchaseItemDate, purchaseItemColor, purchaseItemSize, purchaseItemMaterial, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote, purchaseItemSupplier } = req.body;
 
     let purchaseItemModelQuery = new purchaseItemModel({
         purchaseItemName,
@@ -31,7 +32,8 @@ router.post('/purchaseItemPost', (req, res) => {
         purchaseItemPricePerUnit,
         purchaseItemGst,
         purchaseItemHsn,
-        purchaseItemNote
+        purchaseItemNote,
+        purchaseItemSupplier
     });
 
     purchaseItemModelQuery.save().then(() => {
@@ -42,7 +44,7 @@ router.post('/purchaseItemPost', (req, res) => {
 });
 
 router.post('/purchaseItemEdit', (req, res) => {
-    let { purchaseItemName, purchaseItemDate, purchaseItemColor, purchaseItemSize, purchaseItemMaterial, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote } = req.body;
+    let { purchaseItemName, purchaseItemDate, purchaseItemColor, purchaseItemSize, purchaseItemMaterial, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote, purchaseItemSupplier } = req.body;
     let { id } = req.body;
 
     purchaseItemModel.findOneAndUpdate(
@@ -50,7 +52,7 @@ router.post('/purchaseItemEdit', (req, res) => {
             _id: id
         },
         {
-            $set: { purchaseItemName, purchaseItemDate, purchaseItemColor, purchaseItemSize, purchaseItemMaterial, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote }
+            $set: { purchaseItemName, purchaseItemDate, purchaseItemColor, purchaseItemSize, purchaseItemMaterial, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote, purchaseItemSupplier }
         }
     ).then(() => {
         res.json({ msg: 'purchaseItemModelQuery updated' });
@@ -92,13 +94,14 @@ let purchaseRawSchema = new schema({
     purchaseItemPricePerUnit: String,
     purchaseItemGst: String,
     purchaseItemHsn: String,
-    purchaseItemNote: String
+    purchaseItemNote: String,
+    purchaseItemSupplier: String
 });
 
 let purchaseRawModel = mongoose.model('purchaseRawItem', purchaseRawSchema);
 
 router.post('/purchaseRawPost', (req, res) => {
-    let { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote } = req.body;
+    let { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote, purchaseItemSupplier } = req.body;
 
     let purchaseRawModelQuery = new purchaseRawModel({
         purchaseItemName,
@@ -107,7 +110,8 @@ router.post('/purchaseRawPost', (req, res) => {
         purchaseItemPricePerUnit,
         purchaseItemGst,
         purchaseItemHsn,
-        purchaseItemNote
+        purchaseItemNote,
+        purchaseItemSupplier
     });
 
     purchaseRawModelQuery.save().then(() => {
@@ -118,7 +122,7 @@ router.post('/purchaseRawPost', (req, res) => {
 });
 
 router.post('/purchaseRawEdit', (req, res) => {
-    let { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote } = req.body;
+    let { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote, purchaseItemSupplier } = req.body;
     let { id } = req.body;
 
     purchaseRawModel.findOneAndUpdate(
@@ -126,7 +130,7 @@ router.post('/purchaseRawEdit', (req, res) => {
             _id: id
         },
         {
-            $set: { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote }
+            $set: { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote, purchaseItemSupplier }
         }
     ).then(() => {
         res.json({ msg: 'purchaseRawModelQuery updated' });
@@ -167,13 +171,14 @@ let purchaseMachineSchema = new schema({
     purchaseItemPricePerUnit: String,
     purchaseItemGst: String,
     purchaseItemHsn: String,
-    purchaseItemNote: String
+    purchaseItemNote: String,
+    purchaseItemSupplier: String
 });
 
 let purchaseMachineModel = mongoose.model('purchaseMachineItem', purchaseMachineSchema);
 
 router.post('/purchaseMachinePost', (req, res) => {
-    let { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote } = req.body;
+    let { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote, purchaseItemSupplier } = req.body;
 
     let purchaseMachineModelQuery = new purchaseMachineModel({
         purchaseItemName,
@@ -182,7 +187,8 @@ router.post('/purchaseMachinePost', (req, res) => {
         purchaseItemPricePerUnit,
         purchaseItemGst,
         purchaseItemHsn,
-        purchaseItemNote
+        purchaseItemNote,
+        purchaseItemSupplier
     });
 
     purchaseMachineModelQuery.save().then(() => {
@@ -193,7 +199,7 @@ router.post('/purchaseMachinePost', (req, res) => {
 });
 
 router.post('/purchaseMachineEdit', (req, res) => {
-    let { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote } = req.body;
+    let { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote, purchaseItemSupplier } = req.body;
     let { id } = req.body;
 
     purchaseMachineModel.findOneAndUpdate(
@@ -201,7 +207,7 @@ router.post('/purchaseMachineEdit', (req, res) => {
             _id: id
         },
         {
-            $set: { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote }
+            $set: { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote, purchaseItemSupplier }
         }
     ).then(() => {
         res.json({ msg: 'purchaseMachineModelQuery updated' });
@@ -231,8 +237,6 @@ router.post('/purchaseMachineDelete', (req, res) => {
         res.json(e);
     });
 });
-
-
 
 
 module.exports = router;
