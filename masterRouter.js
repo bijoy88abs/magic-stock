@@ -402,6 +402,66 @@ router.post('/masterGstDelete', (req, res) => {
 });
 
 
+
+
+/************************************************************************************ */
+/************************************************************************************ */
+let masterSupplierSchema = new schema({
+    supplierName: String,
+    supplierContacts: String,
+    supplierAddress: String
+});
+let masterSupplierModel = mongoose.model('masterSupplier', masterSupplierSchema);
+
+router.post('/masterSupplierPost', (req, res) => {
+    let { supplierName, supplierContacts, supplierAddress } = req.body;
+    let masterSupplierModelQuery = new masterSupplierModel({ supplierName, supplierContacts, supplierAddress });
+    masterSupplierModelQuery.save().then(() => {
+        res.json({ msg: 'masterSupplierModelQuery executed' });
+    }).catch((e) => {
+        res.json({ error: e, payload: req.body });
+    })
+});
+
+router.post('/masterSupplierEdit', (req, res) => {
+    let { supplierName, supplierContacts, supplierAddress } = req.body;
+    let { id } = req.body;
+    masterSupplierModel.findOneAndUpdate(
+        {
+            _id: id
+        },
+        {
+            $set: { supplierName, supplierContacts, supplierAddress }
+        }
+    ).then(() => {
+        res.json({ msg: 'masterSupplierModelQuery updated' });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+router.get('/masterSupplierView', (req, res) => {
+    masterSupplierModel.find().then((responseData) => {
+        res.json({ data: responseData });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+router.post('/masterSupplierDelete', (req, res) => {
+    let { id } = req.body;
+    masterSupplierModel.findOneAndDelete(
+        {
+            _id: id
+        }
+    ).then(() => {
+        res.json({ msg: 'masterSupplierModelQuery deleted' });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+
 /************************************************************************************ */
 /************************************************************************************ */
 router.get('/masterCollectionList', (req, res) => {
@@ -412,6 +472,7 @@ router.get('/masterCollectionList', (req, res) => {
                     masterColorModel.find().then((masterColorData) => {
                         masterGstModel.find().then((masterGstData) => {
                             masterMaterialModel.find().then((masterMaterialData) => {
+                                masterSupplierModel.find().then((masterSupplierData) => {
                                 res.json(
                                     {
                                         masterPurchaseItemData: masterPurchaseItemData,
@@ -420,9 +481,13 @@ router.get('/masterCollectionList', (req, res) => {
                                         masterSizeData: masterSizeData,
                                         masterColorData: masterColorData,
                                         masterGstData: masterGstData,
-                                        masterMaterialData: masterMaterialData
+                                        masterMaterialData: masterMaterialData,
+                                        masterSupplierData: masterSupplierData
                                     }
                                 );
+                            }).catch((e) => {
+                                res.json(e);
+                            });
                             }).catch((e) => {
                                 res.json(e);
                             });
