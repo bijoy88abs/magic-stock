@@ -5,6 +5,7 @@ let schema = mongoose.Schema;
 
 let purchaseItemSchema = new schema({
     purchaseItemName: String,
+    purchaseItemDate: String,
     purchaseItemColor: String,
     purchaseItemSize: String,
     purchaseItemMaterial: String,
@@ -18,10 +19,11 @@ let purchaseItemSchema = new schema({
 let purchaseItemModel = mongoose.model('purchaseItem', purchaseItemSchema);
 
 router.post('/purchaseItemPost', (req, res) => {
-    let { purchaseItemName, purchaseItemColor, purchaseItemSize, purchaseItemMaterial, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote } = req.body;
+    let { purchaseItemName, purchaseItemDate, purchaseItemColor, purchaseItemSize, purchaseItemMaterial, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote } = req.body;
 
     let purchaseItemModelQuery = new purchaseItemModel({
         purchaseItemName,
+        purchaseItemDate,
         purchaseItemColor,
         purchaseItemSize,
         purchaseItemMaterial,
@@ -40,7 +42,7 @@ router.post('/purchaseItemPost', (req, res) => {
 });
 
 router.post('/purchaseItemEdit', (req, res) => {
-    let { purchaseItemName, purchaseItemColor, purchaseItemSize, purchaseItemMaterial, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote } = req.body;
+    let { purchaseItemName, purchaseItemDate, purchaseItemColor, purchaseItemSize, purchaseItemMaterial, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote } = req.body;
     let { id } = req.body;
 
     purchaseItemModel.findOneAndUpdate(
@@ -48,7 +50,7 @@ router.post('/purchaseItemEdit', (req, res) => {
             _id: id
         },
         {
-            $set: { purchaseItemName, purchaseItemColor, purchaseItemSize, purchaseItemMaterial, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote }
+            $set: { purchaseItemName, purchaseItemDate, purchaseItemColor, purchaseItemSize, purchaseItemMaterial, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote }
         }
     ).then(() => {
         res.json({ msg: 'purchaseItemModelQuery updated' });
