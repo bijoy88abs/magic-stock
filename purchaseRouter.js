@@ -82,4 +82,87 @@ router.post('/purchaseItemDelete', (req, res) => {
 });
 
 
+
+/************************************************************************************ */
+/************************************************************************************ */
+let purchaseRawSchema = new schema({
+    purchaseItemName: String,
+    purchaseItemDate: String,
+    purchaseItemQty: String,
+    purchaseItemPricePerUnit: String,
+    purchaseItemGst: String,
+    purchaseItemHsn: String,
+    purchaseItemNote: String
+});
+
+let purchaseRawModel = mongoose.model('purchaseRawItem', purchaseRawSchema);
+
+router.post('/purchaseRawPost', (req, res) => {
+    let { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote } = req.body;
+
+    let purchaseRawModelQuery = new purchaseRawModel({
+        purchaseItemName,
+        purchaseItemDate,       
+        purchaseItemQty,
+        purchaseItemPricePerUnit,
+        purchaseItemGst,
+        purchaseItemHsn,
+        purchaseItemNote
+    });
+
+    purchaseRawModelQuery.save().then(() => {
+        res.json({ msg: 'purchaseRawModelQuery executed' });
+    }).catch((e) => {
+        res.json(e);
+    })
+});
+
+router.post('/purchaseRawEdit', (req, res) => {
+    let { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote } = req.body;
+    let { id } = req.body;
+
+    purchaseRawModel.findOneAndUpdate(
+        {
+            _id: id
+        },
+        {
+            $set: { purchaseItemName, purchaseItemDate, purchaseItemQty, purchaseItemPricePerUnit, purchaseItemGst, purchaseItemHsn, purchaseItemNote }
+        }
+    ).then(() => {
+        res.json({ msg: 'purchaseRawModelQuery updated' });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+router.get('/purchaseRawView', (req, res) => {
+    purchaseRawModel.find().then((responseData) => {
+        res.json({ data: responseData });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+router.post('/purchaseRawDelete', (req, res) => {
+    let { id } = req.body;
+
+    purchaseRawModel.findOneAndDelete(
+        {
+            _id: id
+        }
+    ).then(() => {
+        res.json({ msg: 'purchaseRawItemModelQuery deleted' });
+    }).catch((e) => {
+        res.json(e);
+    });
+});
+
+
+/************************************************************************************ */
+/************************************************************************************ */
+
+
+
+
+
 module.exports = router;
